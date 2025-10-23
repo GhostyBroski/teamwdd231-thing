@@ -1,0 +1,104 @@
+#genre-grid {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+/* Remove vertical spacing between genre containers */
+#divider1 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+  margin-top: 40px;
+  transition: all 0.4s ease;
+}
+
+#divider1.collapsed {
+  margin-top: 0;
+}
+
+/* Common style for both rectangles */
+.genre-container {
+  background-color: #333;
+  border-radius: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+  overflow: hidden;
+  transition: all 0.4s ease;
+  opacity: 1;
+  padding: 20px;
+}
+
+/* Top container - full width */
+.top-container {
+  width: 1200px;
+  min-height: 100px;
+  z-index: 2;
+}
+
+/* Bottom container - smaller and overlaps upwards */
+.bottom-container {
+  width: 1000px;
+  min-height: 100px;
+  margin-top: -20px;
+  z-index: 1;
+}
+
+/* Hidden state (smooth collapse and fade) */
+.hidden {
+  max-height: 0;
+  opacity: 0;
+  padding: 0;
+  margin: 0;
+  pointer-events: none;
+}
+
+/* Buttons inside each container */
+.genre-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+}
+
+.genre-btn {
+  background-color: #8D8;
+  color: #000;
+  border: none;
+  border-radius: 25px;
+  padding: 15px 25px;
+  font-family: "Lato", "Didact Gothic", sans-serif;
+  font-size: 1.2em;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.genre-btn:hover {
+  background-color: #AF5;
+  color: #222;
+  transform: scale(1.1);
+}
+
+/* Toggle button */
+#toggle-genres {
+  background-color: #8D8;
+  color: #000;
+  border: none;
+  border-radius: 20px;
+  padding: 10px 20px;
+  font-family: "Lato", "Didact Gothic", sans-serif;
+  font-size: 0.8em;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-top: 25px;
+}
+
+#toggle-genres:hover {
+  background-color: #AF5;
+  color: #222;
+  transform: scale(1.1);
+}

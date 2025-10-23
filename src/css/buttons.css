@@ -1,0 +1,30 @@
+/* Container for the buttons */
+.container {
+  width: 60%;
+  display: flex;
+  justify-self: center;
+  justify-content: center;  /* centers buttons under the screen */
+  align-items: center;
+  gap: 40px;                /* spacing between buttons */
+  margin-top: 70px;         /* small space under the screen */
+}
+
+/* Individual buttons */
+#Q1, #Q2, #Q3 {
+  width: 100%;
+  height: 50px;
+  border: 1px solid #8D8;
+  border-radius: 8px;
+  background-color: #8D8;
+  font-family: "Lato", "Didact Gothic";
+  font-size: 1.1em;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+  cursor: pointer;
+}
+
+#Q1:hover, #Q2:hover, #Q3:hover {
+  background-color: #AF5;
+  border: 1px solid #AF5;
+  color: #222;
+  transform: scale(1.05);
+}

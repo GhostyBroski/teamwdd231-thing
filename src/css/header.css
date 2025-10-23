@@ -1,0 +1,99 @@
+header {
+    position: relative;
+    height: 300px;
+    width: 100%; /* Full screen width */
+    z-index: 0;
+    margin-top: 0;
+    padding-top: 0;
+    background-color: #8D8;
+    top: 0;
+}
+
+#rectangle {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 100%;  /* Full width to avoid overflow */
+    height: 220px;
+    transform: translate(-50%, -50%); 
+    background: #8D8;
+    z-index: 1;
+}
+
+.rounded-rectangle1 {
+    position: absolute;  /* Relative instead of absolute to center easily */
+    top: 50%;
+    left: 50%;
+    width: 90%;  /* Leave some padding on the sides */
+    height: 180px;
+    background: #DFA;
+    transform: translate(-50%, -50%); 
+    border-radius: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 3;
+}
+
+/* Circle Dots */
+#dot1 {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 200px;
+    height: 200px;
+    background-color: #8D8;
+    border-radius: 50%;
+    transform: translate(-50%, -50%); 
+    z-index: 4;  /* On top of other elements */
+}
+
+#dot2 {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 150px;
+    height: 150px;
+    transform: translate(-50%, -50%); 
+    background-color: #222;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 5;  /* Overlapping correctly */
+}
+
+#dot3, #dot4 {
+    position: absolute;
+    width: 180px;
+    height: 180px;
+    background-color: #DFA;
+    border-radius: 50%;
+    z-index: 2;  /* Below the rounded rectangle */
+}
+
+/* Centered logo */
+#dot3 {
+    top: 20%;
+    left: 0%;  /* Adjust position as needed */
+}
+
+#dot4 {
+    top: 20%;
+    right: 0%;  /* Adjust position as needed */
+}
+
+#logo_link {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 10;
+}
+
+.logo {
+    width: 100px;
+    height: 100px;
+    border-radius: 25%;
+    z-index: 10;
+}
