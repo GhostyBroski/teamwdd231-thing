@@ -2,8 +2,8 @@
         display: grid;
         grid-template-columns: 1fr 2fr 1fr; /* Three columns, middle is twice as wide */
         grid-template-rows: auto 100px; /* Two rows, second is 100px tall */
-        gap: 20px; /* Space between grid items */
-    }
+        gap: 20px; /* Space between grid items */}
+    
 
 #screen {
     width: 100%;
