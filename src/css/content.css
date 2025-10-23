@@ -3,3 +3,12 @@
     height: 100vh;
     background-color: lightgray;
 };
+
+#Q1, #Q2, #Q3{
+    width: 80%;
+    margin: 20px auto;
+    padding: 10px;
+    background-color: white;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+};
