@@ -1,9 +1,9 @@
-body{display: grid;
-    grid-template-rows: auto 1fr auto;
-    height: 100vh;
-    margin: 0;
-    font-family: Arial, sans-serif;
-};
+.container {
+        display: grid;
+        grid-template-columns: 1fr 2fr 1fr; /* Three columns, middle is twice as wide */
+        grid-template-rows: auto 100px; /* Two rows, second is 100px tall */
+        gap: 20px; /* Space between grid items */
+    }
 
 #screen {
     width: 100%;
@@ -12,14 +12,14 @@ body{display: grid;
 };
 
 
-#Q1, #Q2, #Q3{
+/* #Q1, #Q2, #Q3{
     width: 80%;
     margin: 20px auto;
     padding: 10px;
     background-color: white;
     border: 1px solid #ccc;
     border-radius: 5px;
-};
+}; */
 
 
 /* button {
@@ -32,3 +32,4 @@ body{display: grid;
     border-radius: 5px;
     cursor: pointer;
 }; */
+
