@@ -1,0 +1,35 @@
+.container {
+        display: grid;
+        grid-template-columns: 1fr 2fr 1fr; /* Three columns, middle is twice as wide */
+        grid-template-rows: auto 100px; /* Two rows, second is 100px tall */
+        gap: 20px; /* Space between grid items */
+    }
+
+#screen {
+    width: 100%;
+    height: 100vh;
+    background-color: lightgray;
+};
+
+
+/* #Q1, #Q2, #Q3{
+    width: 80%;
+    margin: 20px auto;
+    padding: 10px;
+    background-color: white;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}; */
+
+
+/* button {
+    display: block;
+    margin: 20px auto;
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}; */
+
