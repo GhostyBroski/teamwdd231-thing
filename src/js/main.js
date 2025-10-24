@@ -119,27 +119,27 @@ form.addEventListener("submit", (event) => {
   window.location.href = "index.html";
 });
 
-const userMenu = document.getElementById("user-menu");
-if (userMenu) {
-  const username = localStorage.getItem("loggedInUser");
-  const greeting = document.getElementById("user-greeting");
-  const dropdown = document.getElementById("user-dropdown");
-  const hamburger = document.getElementById("hamburger");
-  const logoutBtn = document.getElementById("logout-btn");
+// const userMenu = document.getElementById("user-menu");
+// if (userMenu) {
+//   const username = localStorage.getItem("loggedInUser");
+//   const greeting = document.getElementById("user-greeting");
+//   const dropdown = document.getElementById("user-dropdown");
+//   const hamburger = document.getElementById("hamburger");
+//   const logoutBtn = document.getElementById("logout-btn");
 
-  greeting.textContent = username ? `Hi, ${username}` : "Hi, Guest";
+//   greeting.textContent = username ? `Hi, ${username}` : "Hi, Guest";
 
-  hamburger.addEventListener("click", (e) => {
-    e.stopPropagation();
-    dropdown.style.display = dropdown.style.display === "block" ? "none" : "block";
-  });
+//   hamburger.addEventListener("click", (e) => {
+//     e.stopPropagation();
+//     dropdown.style.display = dropdown.style.display === "block" ? "none" : "block";
+//   });
 
-  document.addEventListener("click", () => {
-    dropdown.style.display = "none";
-  });
+//   document.addEventListener("click", () => {
+//     dropdown.style.display = "none";
+//   });
 
-  logoutBtn.addEventListener("click", () => {
-    localStorage.removeItem("loggedInUser");
-    window.location.href = "login.html";
-  });
-}
+//   logoutBtn.addEventListener("click", () => {
+//     localStorage.removeItem("loggedInUser");
+//     window.location.href = "login.html";
+//   });
+// }
