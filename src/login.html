@@ -19,16 +19,9 @@
   </head>
   <body>
     <header>
-      <div id="user-menu">
-        <span id="user-greeting"></span>
-        <button id="hamburger">&#9776;</button>
-        <div id="user-dropdown">
-          <button id="logout-btn">Log out</button>
-        </div>
-      </div>
       <div id="dot1"></div>
       <div id="dot2">
-        <a id="logo-link" href="vio.html">
+        <a id="logo-link" href="login.html">
           <img class="logo" src="images/viologo.png" alt="Game Hunter Logo">
         </a>
       </div>
@@ -38,7 +31,6 @@
           <button id="reset-btn">Reset</button>
        </nav>
       </div>
-      
       <div id="rectangle"></div>
       <div id="dot3"></div>
       <div id="dot4"></div>
@@ -54,41 +46,19 @@
       <button id="close-review">Close</button>
     </div>
     <main id="main">
-      <div id="genre-grid">
-        <div id="divider1">
-
-          <!-- Top container -->
-          <div class="genre-container top-container">
-            <div class="genre-buttons">
-              <button class="genre-btn">Action</button>
-              <button class="genre-btn">Adventure</button>
-              <button class="genre-btn">Horror</button>
-              <button class="genre-btn">Puzzle</button>
-              <button class="genre-btn">Strategy</button>
-            </div>
-          </div>
-
-          <!-- Bottom container -->
-          <div class="genre-container bottom-container">
-            <div class="genre-buttons">
-              <button class="genre-btn">RPG</button>
-              <button class="genre-btn">Sports</button>
-              <button class="genre-btn">Racing</button>
-              <button class="genre-btn">Simulation</button>
-            </div>
-          </div>
-
-          <!-- Toggle button -->
-          <button id="toggle-genres">▼ Show More</button>
-
+      <form id="login-register">
+        <div class="form-group">
+          <label for="username">Username:</label>
+          <input type="text" id="username" name="username" required />
         </div>
-      </div>
-      <div id="screen"></div>
-      <div class="container">
-        <button id="Q1">Q1</button>
-        <button id="Q2">Q2</button>
-        <button id="Q3">Q3</button>
-      </div>
+
+        <div class="form-group">
+          <label for="password">Password:</label>
+          <input type="password" id="password" name="password" required />
+        </div>
+
+        <button type="submit">Login / Register</button>
+      </form>
     </main>
     <footer>
       <p>Vio Guesser &copy; 2025 - Ash Jones & William Harris</p>
