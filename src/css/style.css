@@ -1,4 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Didact+Gothic&family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Leckerli+One&display=swap');
+@import url('nav.css');
+@import url('header.css');
+@import url('headercontrols.css');
+@import url('footer.css');
+@import url('genre.css');
+@import url('buttons.css');
 
 body {
   margin: 0;
@@ -6,153 +12,13 @@ body {
   height: 100%;
 }
 
-
-/* ----------------------------------------- Nav Section -------------------------------------------- */
-
-nav {
-    display: flex;
-    justify-content: space-between;
-    width: 100%;  /* Full width of the header */
-    padding: 0 20px;  /* Padding on sides to avoid sticking to edges */
-    position: absolute;
-    top: 50%;  /* Vertically center the nav */
-    left: 0;
-    right: 0;
-    transform: translateY(-50%);
+p {
+  font-family: "Lato", "Didact Gothic";
 }
 
-nav a {
-    z-index: 4;
-    text-decoration: none;
-    font-family: "Leckerli One", "Lato", "Didact Gothic";
-    font-size: 2.2em;
-    color: #000;  /* Adjust as needed */
-    padding: 10px 20px;
-    transition: background-color 0.15s ease, border-radius 0.15s ease;
-}
-
-nav a:hover {
-    background-color: #AF5;
-    color: #222;
-    border-radius: 30px;
-}
-
-#site-plan-link {
-    margin-right: 100px; /* Adjust as needed */
-}
-
-#games-link {
-    margin-left: 40px; /* Adjust as needed */
-    margin-right: 90px;
-}
-
-#about-link {
-    margin-right: 40px;
-}
-
-/* ---------------------------------------- Header Section ------------------------------------------- */
-
-header {
-    position: relative;
-    height: 300px;
-    width: 100%; /* Full screen width */
-    z-index: 0;
-    margin-top: 0;
-    padding-top: 0;
-    background-color: #8D8;
-    top: 0;
-}
-
-#rectangle {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 100%;  /* Full width to avoid overflow */
-    height: 220px;
-    transform: translate(-50%, -50%); 
-    background: #8D8;
-    z-index: 1;
-}
-
-.rounded-rectangle1 {
-    position: absolute;  /* Relative instead of absolute to center easily */
-    top: 50%;
-    left: 50%;
-    width: 90%;  /* Leave some padding on the sides */
-    height: 180px;
-    background: #DFA;
-    transform: translate(-50%, -50%); 
-    border-radius: 30px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 3;
-}
-
-/* Circle Dots */
-#dot1 {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 200px;
-    height: 200px;
-    background-color: #8D8;
-    border-radius: 50%;
-    transform: translate(-50%, -50%); 
-    z-index: 4;  /* On top of other elements */
-}
-
-#dot2 {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 150px;
-    height: 150px;
-    transform: translate(-50%, -50%); 
-    background-color: #222;
-    border-radius: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 5;  /* Overlapping correctly */
-}
-
-#dot3, #dot4 {
-    position: absolute;
-    width: 180px;
-    height: 180px;
-    background-color: #DFA;
-    border-radius: 50%;
-    z-index: 2;  /* Below the rounded rectangle */
-}
-
-/* Centered logo */
-#dot3 {
-    top: 20%;
-    left: 0%;  /* Adjust position as needed */
-}
-
-#dot4 {
-    top: 20%;
-    right: 0%;  /* Adjust position as needed */
-}
-
-#logo_link {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    z-index: 10;
-}
-
-.logo {
-    width: 100px;
-    height: 100px;
-    border-radius: 25%;
-    z-index: 10;
-}
 
 /* ----------------------------------------- Main Section -------------------------------------------- */
+
 
 #screen {
   width: 60%;
@@ -164,77 +30,6 @@ header {
   align-items: center;
   justify-content: center;
   border-radius: 50px;
-}
-
-/* Container for the buttons */
-.container {
-  width: 60%;
-  display: flex;
-  justify-self: center;
-  justify-content: center;  /* centers buttons under the screen */
-  align-items: center;
-  gap: 40px;                /* spacing between buttons */
-  margin-top: 70px;         /* small space under the screen */
-}
-
-/* Individual buttons */
-#Q1, #Q2, #Q3 {
-  width: 100%;
-  height: 50px;
-  border: 1px solid #8D8;
-  border-radius: 8px;
-  background-color: #8D8;
-  font-family: "Lato", "Didact Gothic";
-  font-size: 1.1em;
-  transition: background-color 0.2s ease, transform 0.2s ease;
-  cursor: pointer;
-}
-
-#Q1:hover, #Q2:hover, #Q3:hover {
-  background-color: #AF5;
-  border: 1px solid #AF5;
-  color: #222;
-  transform: scale(1.05);
-}
-
-/* ---------------------------------------- Footer Section ------------------------------------------- */
-
-footer {
-    background-color: #8D8;
-    color: #000;
-    padding: 25px 50px;
-    margin-top: 100px;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;                                                                                                                                                                                                                                                                                                                                                                                                                 
-}
-
-footer a {
-    font-family: "Lato", "Didact Gothic";
-    display: inline-block;
-    padding: 10px 15px;
-    color: #2A9D8F;
-    text-decoration: none;
-    transition: background-color 0.15s ease, border-radius 0.15s ease;
-}
-
-
-footer a:hover {
-    color: #F4A261;
-}
-
-footer p {
-    font-family: "Lato", "Didact Gothic";
-    font-size: 2.2em;
-}
-
-footer p a:hover {
-    font-family: "Lato", "Didact Gothic";
-    text-decoration: none;
-    background-color: #264653;
-    display: inline-block;
-    padding: 10px 15px;
-    border-radius: 30px;
 }
 
 /* ---------------------------------------- Media Query Section ------------------------------------------- */
