@@ -5,6 +5,7 @@
 @import url('footer.css');
 @import url('genre.css');
 @import url('buttons.css');
+@import url('login.css');
 
 body {
   margin: 0;
@@ -30,19 +31,8 @@ p {
   align-items: center;
   justify-content: center;
   border-radius: 50px;
-}
+};
 
-#login{
-  width: 60%;
-  height: 500px;
-  margin: 0 auto; /* centers horizontally */
-  margin-top: 50px;
-  background-color: lightgray;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 50px;
-}
 
 /* ---------------------------------------- Media Query Section ------------------------------------------- */
 

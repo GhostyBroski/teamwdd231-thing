@@ -1,0 +1,12 @@
+#login{
+  width: 60%;
+  height: 500px;
+  margin: 0 auto; /* centers horizontally */
+  margin-top: 50px;
+  background-color: lightgray;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50px;
+};
+
