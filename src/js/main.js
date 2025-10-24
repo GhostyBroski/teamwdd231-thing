@@ -116,7 +116,7 @@ form.addEventListener("submit", (event) => {
   localStorage.setItem("loggedInUser", username);
 
   // Redirect to main page
-  window.location.href = "vio.html";
+  window.location.href = "logged-in.html";
 });
 
 // const userMenu = document.getElementById("user-menu");
