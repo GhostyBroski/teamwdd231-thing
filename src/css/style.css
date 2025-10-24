@@ -17,11 +17,21 @@ p {
   font-family: "Lato", "Didact Gothic";
 }
 
-
 /* ----------------------------------------- Main Section -------------------------------------------- */
 
-
 #screen {
+  width: 60%;
+  height: 500px;
+  margin: 0 auto;
+  margin-top: 50px;
+  background-color: lightgray;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50px;
+}
+
+#login{
   width: 60%;
   height: 500px;
   margin: 0 auto; /* centers horizontally */
@@ -31,10 +41,115 @@ p {
   align-items: center;
   justify-content: center;
   border-radius: 50px;
-};
+}
 
+/* ---------------------------------------- Compact Mode Section ------------------------------------------- */
 
-/* ---------------------------------------- Media Query Section ------------------------------------------- */
+/* Compact mode: apply smaller dimensions when body has .compact */
+body.compact header {
+  height: 150px !important;
+  padding: 6px 0 !important;
+}
+
+body.compact #rectangle {
+  height: 120px !important;
+}
+
+body.compact .rounded-rectangle1 {
+  height: 100px !important;
+  border-radius: 30px !important;
+}
+
+body.compact #dot1 {
+  width: 100px !important;
+  height: 100px !important;
+}
+
+body.compact #dot2 {
+  width: 75px !important;
+  height: 75px !important;
+}
+
+body.compact #dot3,
+body.compact #dot4 {
+  width: 100px !important;
+  height: 100px !important;
+}
+
+body.compact .logo {
+  width: 50px !important;
+  height: 50px !important;
+}
+
+/* --- GENRE AREA --- */
+body.compact .top-container {
+  width: 500px !important;
+  min-height: 60px !important;
+  border-radius: 30px !important;
+  padding: 10px !important;
+}
+
+body.compact .bottom-container {
+  width: 400px !important;
+  min-height: 60px !important;
+  margin-top: -10px !important;
+  border-radius: 25px !important;
+  padding: 10px !important;
+}
+
+body.compact .genre-btn {
+  font-size: 0.6em !important;
+  padding: 6px 12px !important;
+  border-radius: 12px !important;
+}
+
+body.compact #toggle-genres {
+  font-size: 0.6em !important;
+  padding: 4px 10px !important;
+  margin-top: 10px !important;
+}
+
+/* --- MAIN SCREEN --- */
+body.compact #screen {
+  width: 60% !important;
+  height: 200px !important;
+  border-radius: 30px !important;
+  margin-top: 20px !important;
+}
+
+/* --- FOOTER --- */
+body.compact footer {
+  font-size: 0.6rem !important;
+  padding: 4px 8px !important;
+  margin-top: 30px;
+}
+
+body.compact .social {
+  transform: scale(0.8);
+}
+
+/* --- GLOBAL SCALE (optional) --- */
+body.compact main {
+  transform: scale(0.85);
+  transform-origin: top center;
+  transition: transform 0.4s ease;
+}
+
+body.compact .container {
+  gap: 30px;
+}
+
+body.compact #Q1,
+body.compact #Q2,
+body.compact #Q3 {
+  font-size: 0.7em !important;
+  padding: 6px 12px !important;
+  border-radius: 10px !important;
+  transform: scale(0.8);
+  transform-origin: center;
+}
+
+/* ---------------------------------------- Media Query Fallback ------------------------------------------- */
 
 @media screen and (max-width: 768px) {
     #screen {
@@ -51,15 +166,96 @@ p {
         width: 80%;
     }
 
-    nav {
-        flex-direction: column;
-        align-items: center;
-        gap: 10px;
-    }
+   #review-btn {
+    margin-right: 10px;
+    align-self: flex-start;
+  }
+
+  #reset-btn {
+    margin-right: 60px;
+    align-self: flex-end;
+  }
 
     footer {
         flex-direction: column;
         gap: 15px;
     }
     
+}
+
+@media screen and (max-height: 600px) {
+
+  header {
+    height: 150px !important;
+    padding: 6px 0 !important;
+  }
+
+  #rectangle {
+    height: 120px !important;
+  }
+
+  .rounded-rectangle1 {
+    height: 100px !important;
+    border-radius: 20px !important;
+  }
+
+  #dot1 {
+    width: 100px !important;
+    height: 100px !important;
+  }
+
+  #dot2 {
+    width: 75px !important;
+    height: 75px !important;
+  }
+
+  #dot3,
+  #dot4 {
+    width: 90px !important;
+    height: 90px !important;
+  }
+
+  .logo {
+    width: 50px !important;
+    height: 50px !important;
+  }
+
+  /* Genre containers */
+  .top-container {
+    width: 500px !important;
+    min-height: 60px !important;
+    border-radius: 30px !important;
+    padding: 10px !important;
+  }
+
+  .bottom-container {
+    width: 400px !important;
+    min-height: 60px !important;
+    margin-top: -10px !important;
+    border-radius: 25px !important;
+    padding: 10px !important;
+  }
+
+  .genre-btn {
+    font-size: 0.6em !important;
+    padding: 6px 12px !important;
+  }
+
+  #toggle-genres {
+    font-size: 0.6em !important;
+    padding: 4px 10px !important;
+    margin-top: 10px !important;
+  }
+
+  #screen {
+    width: 50% !important;
+    height: 200px !important;
+    border-radius: 30px !important;
+    margin-top: 20px !important;
+  }
+
+  footer {
+    font-size: 0.6rem !important;
+    padding: 4px 8px !important;
+  }
 }

@@ -12,13 +12,20 @@
 
     <meta property="og:title" content="Vio Guesser">
     <meta property="og:type" content="website" />
-    <meta property="og:description" content="Try your hand at guessing you favorite characters!">
+    <meta property="og:description" content="Try your hand at guessing your favorite characters!">
     <meta property="og:image" content="images/favicon.ico">
     <meta property="og:url" content="https://vioguesser.netlify.app/">
     <meta name="twitter:card" content="summary_large_image">
   </head>
   <body>
     <header>
+      <div id="user-menu">
+        <span id="user-greeting"></span>
+        <button id="hamburger">&#9776;</button>
+        <div id="user-dropdown">
+          <button id="logout-btn">Log out</button>
+        </div>
+      </div>
       <div id="dot1"></div>
       <div id="dot2">
         <a id="logo-link" href="index.html">
@@ -33,6 +40,7 @@
           <button id="guessr-btn">Guesser</button>
        </nav>
       </div>
+      
       <div id="rectangle"></div>
       <div id="dot3"></div>
       <div id="dot4"></div>
@@ -86,8 +94,6 @@
     </main>
     <footer>
       <p>Vio Guesser &copy; 2025 - Ash Jones & William Harris</p>
-      <!-- <p><a href="about-us.html">About Us</a></p>
-      <p><a href="games.html">Games</a></p> -->
       <div class="social">
         <a href="https://facebook.com">
           <img src="images/facebook.png" alt="fb icon">
