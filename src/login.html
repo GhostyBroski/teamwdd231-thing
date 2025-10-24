@@ -6,13 +6,13 @@
     <meta name="description" content="Attempting to do ">
     <meta name="author" content="Ash Jones & William Harris">
     <title>Vio Guesser</title>
-    <link rel="stylesheet" href="src/css/style.css" />
+    <link rel="stylesheet" href="css/style.css" />
     <link rel="icon" href="images/favicon.ico" type="image/x-icon" />
     <script type="module" src="js/main.js"></script>
 
     <meta property="og:title" content="Vio Guesser">
     <meta property="og:type" content="website" />
-    <meta property="og:description" content="Try your hand at guessing you favorite characters!">
+    <meta property="og:description" content="Try your hand at guessing your favorite characters!">
     <meta property="og:image" content="images/favicon.ico">
     <meta property="og:url" content="https://vioguesser.netlify.app/">
     <meta name="twitter:card" content="summary_large_image">
@@ -22,7 +22,7 @@
       <div id="dot1"></div>
       <div id="dot2">
         <a id="logo-link" href="login.html">
-          <img class="logo" src="src/images/viologo.png" alt="Game Hunter Logo">
+          <img class="logo" src="images/viologo.png" alt="Game Hunter Logo">
         </a>
       </div>
       <div class="rounded-rectangle1">
@@ -46,25 +46,31 @@
       <button id="close-review">Close</button>
     </div>
     <main id="main">
-     <form id="login">
-        <label for="username">Username:</label>
-        <input type="text" id="username" name="username" required />
-        <button type="submit">Login</button>
-     </form>
+      <form id="login-register">
+        <div class="form-group">
+          <label for="username">Username:</label>
+          <input type="text" id="username" name="username" required />
+        </div>
+
+        <div class="form-group">
+          <label for="password">Password:</label>
+          <input type="password" id="password" name="password" required />
+        </div>
+
+        <button type="submit">Login / Register</button>
+      </form>
     </main>
     <footer>
       <p>Vio Guesser &copy; 2025 - Ash Jones & William Harris</p>
-      <!-- <p><a href="about-us.html">About Us</a></p>
-      <p><a href="games.html">Games</a></p> -->
       <div class="social">
         <a href="https://facebook.com">
-          <img src="src/images/facebook.png" alt="fb icon">
+          <img src="images/facebook.png" alt="fb icon">
         </a>
         <a href="https://twitter.com">
-          <img src="src/images/twitter.png" alt="twitter icon">
+          <img src="images/twitter.png" alt="twitter icon">
         </a>
         <a href="https://instagram.com">
-          <img src="src/images/instagram.png" alt="instagram icon">
+          <img src="images/instagram.png" alt="instagram icon">
         </a>
       </div>
     </footer>

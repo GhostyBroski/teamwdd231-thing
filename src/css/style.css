@@ -31,8 +31,48 @@ p {
   transition: all 0.4s ease;
 }
 
+#user-menu {
+  position: relative;
+  display: inline-block;
+  float: right;
+  margin-right: 20px;
+  z-index: 1000; /* make sure it sits above other elements */
+}
 
-#login{
+#user-dropdown {
+  position: absolute;
+  right: 0;
+  top: 40px;
+  background-color: white;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  display: none;
+  min-width: 120px;
+  z-index: 10000; /* higher than header or other elements */
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+#user-dropdown button {
+  width: 100%;
+  background: none;
+  border: none;
+  text-align: left;
+  padding: 8px 12px;
+  cursor: pointer;
+}
+
+#user-dropdown.show {
+  display: block;
+}
+
+#hamburger {
+  background: none;
+  border: none;
+  font-size: 1.5em;
+  cursor: pointer;
+}
+
+#login-register{
   width: 60%;
   height: 500px;
   margin: 0 auto;
@@ -45,16 +85,24 @@ p {
   transition: all 0.4s ease;
 }
 
-#login{
-  width: 60%;
-  height: 500px;
-  margin: 0 auto; /* centers horizontally */
-  margin-top: 50px;
-  background-color: lightgray;
+form {
   display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 50px;
+  flex-direction: column;
+  gap: 10px;
+  width: 300px;
+  margin: 50px auto;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+input {
+  padding: 6px 8px;
+  font-size: 1em;
+  border-radius: 5px;
+  border: 1px solid #ccc;
 }
 
 /* ---------------------------------------- Compact Mode Section ------------------------------------------- */
@@ -165,6 +213,38 @@ body.compact #Q3 {
 
 /* ---------------------------------------- Media Query Fallback ------------------------------------------- */
 
+@media screen and (max-width: 768px) {
+    #screen {
+        width: 90%;
+        height: 300px;
+    }
+
+    .container {
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    #Q1, #Q2, #Q3 {
+        width: 80%;
+    }
+
+   #review-btn {
+    margin-right: 10px;
+    align-self: flex-start;
+  }
+
+  #reset-btn {
+    margin-right: 60px;
+    align-self: flex-end;
+  }
+
+    footer {
+        flex-direction: column;
+        gap: 15px;
+    }
+    
+}
+
 @media screen and (max-height: 600px) {
 
   header {
@@ -240,36 +320,4 @@ body.compact #Q3 {
     font-size: 0.6rem !important;
     padding: 4px 8px !important;
   }
-}
-
-@media screen and (max-width: 768px) {
-    #screen {
-        width: 90%;
-        height: 300px;
-    }
-
-    .container {
-        flex-direction: column;
-        gap: 20px;
-    }
-
-    #Q1, #Q2, #Q3 {
-        width: 80%;
-    }
-
-   #review-btn {
-    margin-right: 10px;
-    align-self: flex-start;
-  }
-
-  #reset-btn {
-    margin-right: 60px;
-    align-self: flex-end;
-  }
-
-    footer {
-        flex-direction: column;
-        gap: 15px;
-    }
-    
 }
