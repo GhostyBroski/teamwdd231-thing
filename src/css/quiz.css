@@ -1,0 +1,110 @@
+/* ================================================================= */
+/* VIO GUESSER - NEW QUIZ/FINAL GUESS STYLES             */
+/* ================================================================= */
+
+/* --- GENERAL QUIZ STYLING --- */
+
+/* Question Text inside #screen */
+#screen h2 {
+    font-family: "Lato", sans-serif;
+    font-size: 1.8em;
+    color: #222;
+    text-align: center;
+    padding: 20px;
+}
+
+/* Style for the answer feedback on Q1, Q2, Q3 */
+#Q1.answered-correct, 
+#Q2.answered-correct, 
+#Q3.answered-correct {
+    background-color: #2A9D8F; /* A distinct green/teal from your palette */
+    border: 1px solid #2A9D8F;
+    color: white;
+    transform: scale(1.05); /* Emphasize the correct choice */
+}
+
+#Q1.answered-wrong, 
+#Q2.answered-wrong, 
+#Q3.answered-wrong {
+    background-color: #E76F51; /* A distinct red/orange from your palette */
+    border: 1px solid #E76F51;
+    color: white;
+    /* Optional: Show the wrong answer shrinking */
+    transform: scale(0.95); 
+}
+
+/* Ensure the hover effect is suppressed after answering */
+.answered-correct:hover, 
+.answered-wrong:hover {
+    cursor: default;
+    background-color: inherit;
+    border-color: inherit;
+}
+
+
+/* --- FINAL GUESS SCREEN STYLING --- */
+
+/* Container for the 3 final guess buttons - overrides the .container grid if necessary */
+#final-guess-container {
+    display: flex;
+    justify-content: center;
+    gap: 40px; /* Spacing between the three final options */
+    width: 90%;
+    margin-top: 50px;
+    margin-bottom: 50px; /* Add space below the options */
+}
+
+/* The button wrapper for the final guess */
+.final-guess-btn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    width: 300px; /* Fixed width for better layout control */
+    min-height: 250px;
+    padding: 15px;
+    border-radius: 20px;
+    background-color: #DFA; /* Light background from your header palette */
+    border: 3px solid #8D8;
+    color: #222;
+    font-family: "Lato", sans-serif;
+    font-size: 1.1em;
+    font-weight: bold;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.final-guess-btn:hover {
+    border-color: #AF5; /* Hover color from your buttons */
+    transform: translateY(-5px) scale(1.02);
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* Screenshot circle wrapper */
+.game-image-wrapper {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%; /* Makes it a circle */
+    overflow: hidden;
+    margin-bottom: 15px;
+    border: 5px solid #2A9D8F; /* A prominent border color */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+/* Screenshot image */
+.game-image-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Ensures the image covers the circle area */
+}
+
+/* --- REVIEW PANEL STYLING (Enhancement for your pre-existing review-list) --- */
+.review-icon {
+    font-size: 1.2em;
+    margin-right: 10px;
+}
+
+.review-label {
+    font-weight: bold;
+}
