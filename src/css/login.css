@@ -1,0 +1,287 @@
+/* --- Core Layout Centering Fix (Scoped) --- */
+body {
+    min-height: 100vh; /* Ensures body covers the full viewport height */
+    display: flex;
+    flex-direction: column; /* Stacks header, main, and footer vertically */
+}
+
+/* Reverted to neutral: #main now only controls growth, preventing global centering in index.html */
+#main {
+    flex: 1; /* Allows main to grow and take all vertical space */
+    padding: 20px; /* General padding */
+}
+
+/* NEW: Centering and Spacing for the LOGIN PAGE ONLY */
+.login-center-layout {
+    display: flex;
+    width: 100%; /* Ensure the container uses full horizontal width */
+    justify-content: center; /* <-- This centers the form horizontally */
+    align-items: center;
+    padding-top: 150px; /* Adds the requested space above the form */
+    padding-bottom: 20px; 
+}
+
+
+/* --- Login Form Centering & Styling --- */
+.login-card {
+    background-color: #1a202c; /* Example background, match your theme */
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+    width: 100%;
+    max-width: 400px;
+    color: white; /* Ensure text is visible */
+}
+
+/* You will need to style form-group, input, and button to match your existing design */
+.login-card .form-group {
+    margin-bottom: 20px;
+}
+.login-card input[type="text"],
+.login-card input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    border-radius: 4px;
+    border: 1px solid #4a5568;
+    background-color: #2d3748;
+    color: white;
+}
+.login-card button[type="submit"] {
+    padding: 12px;
+    background-color: #63b3ed;
+    color: #1a202c;
+    font-weight: bold;
+    border-radius: 8px;
+    width: 100%;
+    cursor: pointer;
+}
+
+/* --- User Panel (Hamburger Menu) Styles --- */
+.panel-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    z-index: 900;
+    display: none;
+    transition: opacity 0.3s;
+    opacity: 0;
+}
+.panel-overlay.open {
+    display: block;
+    opacity: 1;
+}
+
+.panel {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 300px; /* Adjust width as needed */
+    height: 100%;
+    background-color: #222; /* Match your review panel */
+    color: white;
+    z-index: 1000;
+    padding: 20px;
+    box-shadow: -5px 0 15px rgba(0, 0, 0, 0.5);
+    transform: translateX(100%);
+    transition: transform 0.3s ease-in-out;
+    display: flex;
+    flex-direction: column;
+}
+
+.panel.open {
+    transform: translateX(0);
+}
+
+.panel-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.panel-header h2 {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+#close-user-panel {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: #ccc;
+}
+
+.logout-button {
+    background-color: #f56565; /* Red for logout */
+    color: white;
+    padding: 10px;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 300px; /* Pushes button to the bottom */
+}
+
+
+#login-register {
+    background: #8D8;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 400px;
+}
+.form-group {
+    margin-bottom: 15px;
+}
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+.form-group input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-sizing: border-box;
+}
+#login-register button {
+    width: 100%;
+    padding: 12px;
+    background-color: #222; /* Example color, likely overridden by your CSS */
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.2s;
+}
+#login-register button:hover {
+    background-color: #AF5;
+}
+.message-box {
+    padding: 10px;
+    margin-bottom: 15px;
+    border-radius: 8px;
+    text-align: center;
+    font-weight: bold;
+    display: none;
+}
+.message-box.error {
+    background-color: #FEE2E2;
+    color: #EF4444;
+}
+.message-box.success {
+    background-color: #D1FAE5;
+    color: #10B981;
+}
+
+/* User Menu & Dropdown Styling (Simplified/Cleaned up the old dropdown styles) */
+#user-menu {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    display: flex;
+    align-items: center;
+    z-index: 10;
+}
+#user-greeting {
+    margin-right: 10px;
+    font-weight: bold;
+}
+#hamburger {
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    padding: 5px;
+}
+
+@media (max-width: 768px) {
+    .panel {
+        width: 80%;
+    }
+    .login-card {
+        max-width: 90%;
+    }
+    .modal-card {
+        max-width: 90%;
+    }
+}
+
+
+/* --------------------------------------------------------------------
+ * --- NEW: Reset Confirmation Modal Styles (Used by #confirm-reset-panel)
+ * -------------------------------------------------------------------- */
+
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #222;
+    z-index: 1050; /* Higher than panels */
+    display: none; 
+}
+
+.modal-card {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #222; /* Dark background */
+    color: white;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.8);
+    z-index: 1060;
+    width: 90%;
+    max-width: 450px;
+    display: none; /* Controlled by JS */
+    text-align: center;
+}
+
+.modal-card h2 {
+    font-size: 1.5rem;
+    margin-bottom: 15px;
+    color: #f56565; /* Highlight the alert */
+}
+
+.flex-container {
+    display: flex;
+    justify-content: space-around;
+    gap: 15px;
+    margin-top: 25px;
+}
+
+/* Modal Buttons */
+.confirm-btn {
+    padding: 12px 20px;
+    border: none;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    flex-grow: 1;
+}
+
+.yes-btn {
+    background-color: #f56565; /* Red/Alert color for confirmation */
+    color: white;
+}
+.yes-btn:hover {
+    background-color: #e53e3e;
+}
+
+.no-btn {
+    background-color: #4a5568; /* Grey/Neutral color for cancel */
+    color: white;
+}
+.no-btn:hover {
+    background-color: #2d3748;
+}

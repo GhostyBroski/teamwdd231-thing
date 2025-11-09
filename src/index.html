@@ -7,6 +7,8 @@
     <meta name="author" content="Ash Jones & William Harris">
     <title>Vio Guesser</title>
     <link rel="stylesheet" href="css/style.css" />
+    <!-- Assuming your custom panel CSS is included here, or merged into style.css -->
+    <link rel="stylesheet" href="css/login.css" /> 
     <link rel="icon" href="images/favicon.ico" type="image/x-icon" />
     <script type="module" src="js/main.js"></script>
 
@@ -20,11 +22,10 @@
   <body>
     <header>
       <div id="user-menu">
-        <span id="user-greeting"></span>
-        <button id="hamburger">&#9776;</button>
-        <div id="user-dropdown">
-          <button id="logout-btn">Log out</button>
-        </div>
+        <span id="user-greeting">Welcome, Guest!</span>
+        <!-- The hamburger button now controls the slide-out panel -->
+        <button id="hamburger" aria-controls="user-panel" aria-expanded="false">&#9776;</button>
+        <!-- Removed the old #user-dropdown -->
       </div>
       <div id="dot1"></div>
       <div id="dot2">
@@ -36,7 +37,9 @@
         <nav>
           <button id="review-btn">Review</button>
           <button id="reset-btn">Reset</button>
-       </nav>
+          <button id="home-btn">Home</button>
+          <button id="guessr-btn">Guesser</button>
+        </nav>
       </div>
       
       <div id="rectangle"></div>
@@ -44,8 +47,8 @@
       <div id="dot4"></div>
     </header>
 
+    <!-- 1. REVIEW PANEL (Existing) -->
     <div id="review-overlay"></div>
-
     <div id="review-panel">
       <h2>Review</h2>
       <ul id="review-list">
@@ -53,6 +56,59 @@
       </ul>
       <button id="close-review">Close</button>
     </div>
+
+    <!-- 2. USER PANEL (NEW SLIDE-OUT) -->
+    <!-- The overlay is for background dimming/closing on click -->
+    <div id="user-overlay" class="panel-overlay" role="presentation"></div>
+
+    <!-- The main slide-out panel -->
+    <div id="user-panel" class="panel" role="dialog" aria-modal="true" aria-labelledby="user-panel-heading">
+      <div class="panel-header">
+        <h2 id="user-panel-heading">User Profile</h2>
+        <!-- Using the ID from your provided CSS snippet -->
+        <button id="close-user-panel" aria-label="Close User Panel">&times;</button>
+      </div>
+      
+      <p id="panel-greeting" class="text-lg mb-4">
+        Currently logged in as: <strong id="current-user-display">Guest</strong>
+      </p>
+
+      <!-- Placeholder for user stats/info -->
+      <div class="user-stats mb-8 p-4 bg-gray-700 rounded-lg">
+        <h3 class="text-xl font-semibold mb-2">Game Stats</h3>
+        <p>Games Played: <span id="games-played">0</span></p>
+        <p>Correct Guesses: <span id="correct-guesses">0</span></p>
+      </div>
+
+      <!-- Log out button uses the class from your CSS snippet -->
+      <button id="panel-logout-btn" class="logout-button">Log Out</button>
+
+      <!-- Login/Register form placeholder for logged-out state -->
+      <!-- This block should be shown if the user is not authenticated -->
+      <div id="login-register-panel" style="display: none;">
+          <h3>Sign In or Register</h3>
+          <!-- Content of a small login/register form can go here -->
+          <button id="panel-login-btn" class="logout-button" style="background-color: #63b3ed;">Sign In / Register</button>
+      </div>
+      
+    </div>
+
+    <!-- 3. RESET CONFIRMATION MODAL (NEW) -->
+    <div id="confirm-reset-overlay" class="modal-overlay"></div>
+    <div id="confirm-reset-panel" class="modal-card" role="alertdialog" aria-modal="true" aria-labelledby="reset-confirm-heading">
+      <h2 id="reset-confirm-heading" class="text-xl font-bold mb-4">Confirm Game Reset</h2>
+      <p class="mb-6">
+        Are you sure you want to reset your **game progress**? This action will clear your current prompts and history.
+        <br><br>
+        Your **login session will be saved**, and you will remain logged in.
+      </p>
+      <div class="flex-container">
+        <!-- Added type="button" -->
+        <button id="confirm-reset-yes" type="button" class="confirm-btn yes-btn">Yes, Reset Game</button>
+        <button id="confirm-reset-no" type="button" class="confirm-btn no-btn">Cancel</button>
+      </div>
+    </div>
+    
     <main id="main">
       <div id="genre-grid">
         <div id="divider1">
