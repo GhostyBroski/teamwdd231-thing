@@ -80,7 +80,7 @@
 .genre-btn:hover {
   background-color: #AF5;
   color: #222;
-  transform: scale(1.1);
+  transform: scale(1.05);
 }
 
 /* Toggle button */
