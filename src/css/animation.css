@@ -1,0 +1,225 @@
+/* ======================================= */
+/* 1. CHECK MARK / X ANIMATION (PER QUESTION) */
+/* ======================================= */
+
+/* Base Styles for the Feedback Icon */
+.feedback-icon {
+    /* Use position:absolute to overlay on the screen */
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, 80%);
+    width: 200px; /* Large, clear icon */
+    height: 200px;
+    opacity: 0; /* Start hidden */
+    pointer-events: none; /* Icon is decorative, not clickable */
+}
+
+.feedback-icon path {
+    fill: none;
+    stroke-width: 10; /* Thickness of the line */
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    /* Crucial properties for the drawing animation */
+    stroke-dasharray: 100; /* Define the total length of the path (approximate) */
+    stroke-dashoffset: 100; /* 100% offset hides the line */
+    animation: draw 1s cubic-bezier(0.19, 1, 0.22, 1) forwards; /* Smoother drawing speed */
+}
+
+/* Correct Answer Styling */
+#screen.correct .feedback-icon {
+    opacity: 1;
+}
+#screen.correct #check-path {
+    stroke: #48bb78; /* Green for correct */
+}
+#screen.correct #x-path1,
+#screen.correct #x-path2 {
+    display: none; /* Hide the X paths */
+}
+
+/* Wrong Answer Styling */
+#screen.wrong .feedback-icon {
+    opacity: 1;
+}
+#screen.wrong #x-path1,
+#screen.wrong #x-path2 {
+    stroke: #f56565; /* Red for wrong */
+}
+#screen.wrong #check-path {
+    display: none; /* Hide the Check path */
+}
+
+/* Keyframe for drawing the line */
+@keyframes draw {
+    100% {
+        stroke-dashoffset: 0; /* Fully drawn */
+        opacity: 1;
+    }
+}
+
+/* ======================================= */
+/* 2. DRUM ROLL ANIMATION (FINAL GUESS) */
+/* ======================================= */
+
+/* Shake Effect Keyframes */
+@keyframes drumRollShake {
+    0%, 100% { transform: translate(0, 0); }
+    10% { transform: translate(-1px, 1px) rotate(0.5deg); }
+    20% { transform: translate(1px, -1px) rotate(-0.5deg); }
+    30% { transform: translate(-1px, -1px) rotate(0.5deg); }
+    40% { transform: translate(1px, 1px) rotate(-0.5deg); }
+    50% { transform: translate(-2px, 0) rotate(0.5deg); }
+    60% { transform: translate(2px, 0) rotate(-0.5deg); }
+    70% { transform: translate(-1px, -1px) rotate(0.5deg); }
+    80% { transform: translate(1px, 1px) rotate(-0.5deg); }
+    90% { transform: translate(-1px, 1px) rotate(0.5deg); }
+}
+
+/* Class applied during the 3-second suspense period */
+#screen.drum-roll-active {
+    animation: drumRollShake 0.1s infinite alternate; /* Fast, repeated shake */
+    box-shadow: 0 0 20px rgba(255, 223, 0, 0.9), 0 0 5px rgba(255, 223, 0, 0.5); /* Glowing border */
+    border: 3px solid #ffcc00;
+    transition: all 0.1s ease-in-out;
+}
+
+/* Animation for the final revealed text */
+@keyframes revealFadeIn {
+    0% { opacity: 0; transform: scale(0.9); }
+    100% { opacity: 1; transform: scale(1); }
+}
+
+.reveal-text {
+    animation: revealFadeIn 0.8s ease-out forwards;
+}
+
+/* Base style for final guess buttons (assuming they are children of .container) */
+.container button, .genre-buttons button {
+    /* Ensure a transition on transform for a smooth start/stop */
+    transition: transform 0.1s ease-in-out;
+}
+
+/* The key rule: Apply animation on hover with a 3-second delay */
+.container button:hover, .genre-buttons button:hover {
+    /* This transition runs immediately, but the animation below is delayed. */
+    
+    /* 1. Reset any existing animation and transition properties for the drum roll effect */
+    animation: none;
+    box-shadow: none;
+    
+    /* 2. Start the drum roll animation after 3 seconds */
+    animation-name: drumRollShake;
+    animation-duration: 1.7s; /* Quick shake speed */
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+    animation-direction: alternate; 
+    
+    /* 3. Optional: Add a visual indicator (like a glow) for the duration of the hover */
+    box-shadow: 0 0 10px rgba(255, 223, 0, 0.5), 0 0 20px rgba(255, 223, 0, 0.2);
+    /* border: 3px solid #ffcc00;  */
+}
+
+/* ======================================= */
+/* CONFETTI ANIMATION STYLES */
+/* ======================================= */
+
+.confetti-piece {
+    position: fixed; /* Ensures it stays relative to the viewport */
+    z-index: 9999; /* Ensures it is on top of everything */
+    border-radius: 50%; /* Make them circular */
+    pointer-events: none; /* Allows clicks to pass through */
+    transform: rotate(0deg);
+}
+
+@keyframes fall {
+    0% {
+        opacity: 1;
+        transform: translateY(0vh) rotate(0deg);
+    }
+    100% {
+        opacity: 0.2;
+        /* Make them fall off-screen, and randomize rotation */
+        transform: translateY(105vh) rotate(720deg); 
+    }
+}
+
+/* ======================================= */
+/* TOMATO ANIMATION STYLES (MODIFIED) */
+/* ======================================= */
+
+.tomato-piece {
+    position: fixed;
+    z-index: 9998;
+    pointer-events: none;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+    /* Ensure transform-origin is at the center for a smooth scale */
+    transform-origin: center center; 
+}
+
+/* New CSS for the Green Stem */
+.tomato-stem {
+    content: '';
+    position: absolute;
+    top: 0; /* Position stem at the top of the tomato div */
+    left: 50%;
+    transform: translateX(-50%);
+    width: 30%; /* Width relative to the tomato piece */
+    height: 15%; /* Height relative to the tomato piece */
+    background-color: darkgreen;
+    border-radius: 50% 50% 0 0; /* Creates a slightly rounded, cap-like shape */
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+/* Keyframes for Throwing TOWARDS US (using scale) */
+@keyframes tomatoFly {
+    0% {
+        opacity: 0.5;
+        /* Start small and very high up */
+        transform: translateZ(-500px) translateY(0vh) scale(0.1); 
+    }
+    50% {
+        opacity: 0.8;
+        /* Mid-point of the flight path */
+        transform: translateZ(-250px) translateY(50vh) scale(0.5); 
+    }
+    90% {
+        opacity: 1;
+        /* Reaches the screen (larger size) */
+        transform: translateZ(0) translateY(100vh) scale(1.2); 
+    }
+    100% {
+        opacity: 0.8;
+        /* Final "splatter" and slightly off-screen */
+        transform: translateZ(0) translateY(105vh) scale(1.5) rotate(180deg); 
+    }
+}
+
+@keyframes genreExit {
+    0% { opacity: 1; transform: scale(1); }
+    100% { 
+        opacity: 0; 
+        /* Example: Shrink and rotate for a quick dissolve */
+        transform: scale(0.5) rotate(5deg); 
+    }
+}
+
+.genre-exit {
+    animation: genreExit 0.4s ease-out forwards;
+    pointer-events: none; /* Prevent clicks during the animation */
+}
+
+/* ======================================= */
+/* QUESTION CONTENT SLIDE-IN ANIMATION */
+/* ======================================= */
+@keyframes contentSlideIn {
+    0% { opacity: 0; transform: translateY(10px); }
+    100% { opacity: 1; transform: translateY(0); }
+}
+
+/* * We target the h2 *inside* the mainScreen when the 'content-enter' class is present.
+ * This ensures only the newly rendered question text animates in.
+ */
+#screen.content-enter h2 {
+    animation: contentSlideIn 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards; 
+}

@@ -14,6 +14,14 @@ const ALL_ESRB_RATINGS = [
 ];
 const questionSequence = ['platforms', 'creators', 'year', 'reviews', 'esrb', 'playtime'];
 
+const FEEDBACK_SVG = `
+    <svg class="feedback-icon" viewBox="0 0 100 100">
+        <path id="check-path" d="M20,50 L45,75 L80,25" />
+        <path id="x-path1" d="M25,25 L75,75" />
+        <path id="x-path2" d="M75,25 L25,75" />
+    </svg>
+`;
+
 // DOM Elements used across application logic (Note: Many are queried in the main block)
 const mainScreen = document.getElementById('screen');
 const buttonContainer = document.querySelector('.container'); 
@@ -315,12 +323,17 @@ async function initializeGame(genreSlug) {
     }
 
     // 4. Update UI and start the first question
-    genreGrid.style.display = 'none';
+    genreGrid.classList.add('genre-exit');
+
+    await new Promise(resolve => setTimeout(resolve, 350));
+
+    genreGrid.style.display = 'none';
+    genreGrid.classList.remove('genre-exit');
+
+
     mainScreen.style.display = 'flex'; 
     buttonContainer.style.display = 'flex'; 
     buttons.forEach(btn => btn.style.display = 'block'); 
-    
-    console.log("Game initialized successfully with target:", gameState.correctGame.name);
     
     // Start the platforms question which handles skipping if data is missing
     await generateQuestion('platforms'); 
@@ -338,8 +351,14 @@ async function handleAnswer(questionId, isCorrect, chosenValue) {
 
     const currentIndex = questionSequence.indexOf(questionId);
     buttons.forEach(btn => btn.disabled = true);
+
+    mainScreen.innerHTML = '';
+    mainScreen.innerHTML += FEEDBACK_SVG;
+    mainScreen.classList.add(isCorrect ? 'correct' : 'wrong');
+    await new Promise(resolve => setTimeout(resolve, 1200));
     
-    await new Promise(resolve => setTimeout(resolve, 1000));
+    mainScreen.classList.remove('correct', 'wrong');
+    mainScreen.innerHTML = '';
 
     if (currentIndex < questionSequence.length - 1) {
         await generateQuestion(questionSequence[currentIndex + 1]);
@@ -350,28 +369,129 @@ async function handleAnswer(questionId, isCorrect, chosenValue) {
 }
 
 function submitFinalGuess(chosenGameId) {
-    if (chosenGameId === gameState.correctGame.id) {
-        endGame('win');
-    } else {
-        endGame('loss');
-    }
+    // Disable all buttons to prevent double-clicking
+    buttons.forEach(btn => btn.disabled = true);
+
+    // --- NEW: Start Drum Roll Animation ---
+    // Add a class to the screen to trigger the visual shake/effect
+    mainScreen.classList.add('drum-roll-active');
+    
+    // We will wait 3 seconds for the "drum roll" before checking the answer
+    setTimeout(() => {
+        // Remove the drum roll class before displaying the result
+        mainScreen.classList.remove('drum-roll-active');
+
+        // Original logic runs here:
+        if (chosenGameId === gameState.correctGame.id) {
+            endGame('win');
+        } else {
+            endGame('loss');
+        }
+    }, 3000); // 3-second delay for suspense
+}
+
+function launchConfetti(color = '#48bb78') {
+    const confettiCount = 50;
+    const confettiColors = ['#48bb78', '#63b3ed', '#f6ad55', '#fc8181', '#a3a3e6'];
+    const container = document.body; // Use the entire body for full screen effect
+
+    for (let i = 0; i < confettiCount; i++) {
+        const piece = document.createElement('div');
+        piece.classList.add('confetti-piece');
+
+        // Randomize initial position, size, color, and animation delay
+        const size = Math.floor(Math.random() * 30) + 15; // 4px to 12px
+        piece.style.width = `${size}px`;
+        piece.style.height = `${size}px`;
+        piece.style.backgroundColor = confettiColors[Math.floor(Math.random() * confettiColors.length)];
+        
+        // Start confetti near the center top of the screen
+        piece.style.left = `${Math.random() * 50 + 25}vw`; 
+        piece.style.top = `${Math.random() * 10}vh`; 
+        piece.style.opacity = '0';
+        
+        // Apply animation properties
+        const duration = Math.random() * 3 + 2; // 2s to 5s
+        piece.style.animation = `fall ${duration}s ease-in forwards`;
+        piece.style.animationDelay = `${Math.random() * 0.5}s`;
+
+        container.appendChild(piece);
+
+        // Remove the element after the animation finishes
+        setTimeout(() => {
+            piece.remove();
+        }, (duration * 1000) + 500); 
+    }
+}
+
+// --- THROW TOMATOES FUNCTION (Add this to your main.js file) ---
+function throwTomatoes() {
+    const tomatoCount = 20;
+    const container = document.body;
+
+    for (let i = 0; i < tomatoCount; i++) {
+        // 1. Create the main tomato piece (wrapper)
+        const piece = document.createElement('div');
+        piece.classList.add('tomato-piece');
+
+        // 2. Create the green stem
+        const stem = document.createElement('span');
+        stem.classList.add('tomato-stem');
+        piece.appendChild(stem); // Attach stem to the piece
+
+        // Randomize size and initial horizontal position
+        const size = Math.floor(Math.random() * 18) + 24; // 15px to 25px
+        piece.style.width = `${size}px`;
+        piece.style.height = `${size}px`;
+        
+        piece.style.backgroundColor = `rgb(170, 0, 0)`; 
+        piece.style.borderRadius = `${Math.random() * 50 + 50}% ${Math.random() * 50 + 50}% ${Math.random() * 50 + 50}% ${Math.random() * 50 + 50}% / ${Math.random() * 50 + 50}% ${Math.random() * 50 + 50}% ${Math.random() * 50 + 50}% ${Math.random() * 50 + 50}%`; 
+        
+        // Start high up and scattered horizontally
+        piece.style.left = `${Math.random() * 100}vw`; 
+        piece.style.top = `-10vh`; 
+        
+        // Apply animation properties
+        const duration = Math.random() * 1 + 1.5; // 1.5s to 2.5s quick fall
+        
+        // Use the new CSS keyframes for 3D effect
+        piece.style.animation = `tomatoFly ${duration}s ease-in forwards`;
+        piece.style.animationDelay = `${Math.random() * 0.3}s`;
+
+        container.appendChild(piece);
+
+        // Remove the element after the animation finishes
+        setTimeout(() => {
+            piece.remove();
+        }, (duration * 1000) + 500); 
+    }
 }
 
 // --- END GAME FUNCTION ---
 function endGame(result) {
+
+    const isWin = result === 'win';
+
+    if (isWin) {
+        launchConfetti();
+    } else {
+        throwTomatoes();
+    }
+    
+    mainScreen.classList.add('game-over-state', result);
     // 1. Update mainScreen content
     const resultText = result === 'win' ? 
-        '<h2 style="font-size: 2.5rem; color: #48bb78; margin-bottom: 20px;">🎉 CONGRATULATIONS! YOU GUESSED IT!</h2>' : 
-        '<h2 style="font-size: 2.5rem; color: #f56565; margin-bottom: 20px;">😭 GAME OVER!</h2>';
+        '<h2 style="font-size: 2.5rem; color: #48bb78; margin-bottom: 10px;">🎉 CONGRATULATIONS! YOU GUESSED IT!</h2>' : 
+        '<h2 style="font-size: 2.5rem; color: #f56565; margin-bottom: 10px;">😭 GAME OVER!</h2>';
         
     mainScreen.innerHTML = `
-        <div style="text-align: center; padding: 20px;">
+        <div style="text-align: center;">
             ${resultText}
-            <div style="margin-top: 10px;">
+            <div style="margin-top: 5px;">
                 <p style="font-size: 1.2rem; margin-bottom: 5px; font-weight: 500;">The correct game was:</p>
                 <strong style="font-size: 1.8rem; color: #63b3ed;">${gameState.correctGame.name}</strong>
             </div>
-            <p style="font-size: 1.1rem; margin-top: 30px; font-weight: 500;">
+            <p style="font-size: 1.1rem; font-weight: 500;">
                 Would you like to try again?
             </p>
         </div>
@@ -660,26 +780,36 @@ async function generateQuestion(questionId) {
 
 // --- UI RENDERING & REVIEW PANEL ---
 function renderQuestion(questionText, answers, questionId) {
-    mainScreen.innerHTML = `<h2>${questionText}</h2>`;
-    buttons.forEach(btn => {
-        btn.classList.remove('answered-correct', 'answered-wrong');
-        btn.style.minHeight = 'auto'; 
-        btn.innerHTML = ''; 
-    });
+    // 1. New: Clear old content and add class to trigger entrance animation
+    mainScreen.innerHTML = `<h2>${questionText}</h2>`;
+    mainScreen.classList.add('content-enter'); 
 
-    buttons.forEach((button, index) => {
-        const option = answers[index];
-        button.textContent = option ? option.value : `Option ${index + 1} (Error)`; 
-        button.onclick = () => {
-            buttons.forEach(btn => btn.classList.remove('answered-correct', 'answered-wrong'));
-            if (option) {
-                button.classList.add(option.isCorrect ? 'answered-correct' : 'answered-wrong');
-                handleAnswer(questionId, option.isCorrect, option.value);
-            } else {
-                console.error("Attempted to handle click on an undefined option.");
-            }
-        };
-    });
+    // Remove the entrance class after a short delay (allowing animation to complete)
+    setTimeout(() => {
+        mainScreen.classList.remove('content-enter');
+    }, 500); // Wait 0.5s for the 0.4s animation to finish
+
+    buttons.forEach(btn => {
+        btn.classList.remove('answered-correct', 'answered-wrong');
+        btn.style.minHeight = 'auto'; 
+        btn.innerHTML = ''; 
+    });
+
+    buttons.forEach((button, index) => {
+        const option = answers[index];
+        button.textContent = option ? option.value : `Option ${index + 1} (Error)`; 
+        button.onclick = () => {
+
+            buttons.forEach(btn => btn.classList.remove('answered-correct', 'answered-wrong'));
+            if (option) {
+                // Your existing logic: visually mark correct/wrong, then call handler
+                button.classList.add(option.isCorrect ? 'answered-correct' : 'answered-wrong');
+                handleAnswer(questionId, option.isCorrect, option.value);
+            } else {
+                console.error("Attempted to handle click on an undefined option.");
+            }
+        };
+    });
 }
 
 function updateReviewPanel() {

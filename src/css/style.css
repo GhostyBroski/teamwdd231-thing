@@ -7,6 +7,7 @@
 @import url('buttons.css');
 @import url('login.css');
 @import url('quiz.css');
+@import url('animation.css');
 
 body {
   margin: 0;
@@ -155,7 +156,7 @@ body.compact #Q3 {
 @media screen and (max-width: 768px) {
     #screen {
         width: 90%;
-        height: 300px;
+        height: 350px;
     }
 
     .container {
@@ -177,9 +178,71 @@ body.compact #Q3 {
     align-self: flex-end;
   }
 
-    footer {
-        flex-direction: column;
-        gap: 15px;
+  footer {
+    flex-direction: column;
+    gap: 15px;
+  }
+
+
+  /* 2 & 3. Feedback Icon (Check/X) Position and Size */
+  .feedback-icon {
+    /* Decrease overall size of the SVG container */
+    width: 50px; 
+    height: 50px; 
+    /* Adjusted vertical positioning: reduced the previous +20px offset to +10px. 
+    If it's still too high/low, tweak the +10px value. */
+    transform: translate(-50%, -300%);
+  }
+    
+  /* Adjust the thickness of the lines for the smaller icon */
+  .feedback-icon path {
+    stroke-width: 8; 
+  }
+
+  /* 4. Particle Size (Confetti and Tomatoes) */
+  /* We use !important to override the randomized inline widths set in JavaScript */
+  .confetti-piece {
+    width: 8px !important; /* Cap max confetti size */
+    height: 8px !important;
+  }
+    
+  .tomato-piece {
+    width: 18px !important; /* Cap max tomato size */
+    height: 18px !important;
+  }
+
+  /* Target the inner padding/content wrapper */
+    #screen.game-over-state > div {
+        /* Minimize padding to reclaim screen space */
+        padding: 5px 5px !important; 
+    }
+
+    /* Main "CONGRATULATIONS/GAME OVER" heading (H2 with inline style) */
+    #screen.game-over-state h2 {
+        /* Override the inline font-size: 2.5rem */
+        font-size: 1.3rem !important; 
+        /* Ensure the animation target is also captured */
+        line-height: 1.2 !important;
+        margin-bottom: 5px !important;
+    }
+    
+    /* The correct game name (strong tag, overriding inline font-size: 1.8rem) */
+    #screen.game-over-state strong {
+        font-size: 1.1rem !important; 
+        line-height: 1.2 !important;
+    }
+    
+    /* All paragraph text (p tags, overriding inline font-size: 1.2rem/1.1rem) */
+    #screen.game-over-state p {
+        font-size: 0.8rem !important; 
+        margin-top: 5px !important;
+        margin-bottom: 5px !important;
+    }
+
+    /* General question text (if it was still too big) */
+    #screen h2 {
+        font-size: 1.2rem; 
+        padding: 0 5px; 
     }
     
 }
@@ -250,7 +313,7 @@ body.compact #Q3 {
 
   #screen {
     width: 50% !important;
-    height: 200px !important;
+    height: 250px !important;
     border-radius: 30px !important;
     margin-top: 20px !important;
   }
