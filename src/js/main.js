@@ -36,6 +36,25 @@ let gameState = {
     loggedInUser: null // New state property for the authenticated user
 };
 
+function setInitialGameUIState() {
+    // 1. Set the main screen message
+    if (mainScreen) {
+        mainScreen.innerHTML = `<h2>Pick a Genre to Start Guessing!</h2>`;
+    }
+    // 2. Set Q-buttons to blank/initial state
+    if (buttons) {
+        buttons.forEach(btn => {
+            btn.textContent = ''; // Set to blank
+            btn.style.display = 'block'; // Ensure they are visible, but blank
+            btn.classList.remove('answered-correct', 'answered-wrong');
+            btn.onclick = null; // Remove any click handlers
+        });
+    }
+    // 3. Ensure genre grid is visible
+    if (genreGrid) {
+        genreGrid.style.display = 'flex';
+    }
+}
 
 // =================================================================
 //                      NEW AUTH & UI FUNCTIONS
@@ -103,58 +122,6 @@ function setupPanelListeners() {
     if (userOverlay) { userOverlay.addEventListener('click', toggleUserPanel); }
     if (panelLogoutBtn) { panelLogoutBtn.addEventListener('click', logoutUser); }
 
-    // ------------------- RESET CONFIRMATION LOGIC -------------------
-    
-    const resetBtn = document.getElementById('reset-btn');
-    const confirmResetPanel = document.getElementById('confirm-reset-panel');
-    const confirmResetOverlay = document.getElementById('confirm-reset-overlay');
-    const confirmResetYes = document.getElementById('confirm-reset-yes');
-    const confirmResetNo = document.getElementById('confirm-reset-no');
-
-    // Helper function to show the reset modal
-    function showResetModal() {
-        if (confirmResetPanel && confirmResetOverlay) {
-             confirmResetPanel.style.display = 'block';
-             confirmResetOverlay.style.display = 'block';
-             // Hide other panels if they are open (e.g., user panel)
-             document.getElementById('user-panel')?.classList.remove('open');
-             document.getElementById('user-overlay')?.classList.remove('open');
-        }
-    }
-
-    // Helper function to hide the reset modal
-    function hideResetModal() {
-        if (confirmResetPanel && confirmResetOverlay) {
-            confirmResetPanel.style.display = 'none';
-            confirmResetOverlay.style.display = 'none';
-        }
-    }
-
-    // 1. Show Confirmation Modal when 'Reset' is clicked
-    if (resetBtn) {
-        resetBtn.addEventListener('click', showResetModal);
-    }
-    // Also allow clicking the overlay to cancel
-    if (confirmResetOverlay) {
-        confirmResetOverlay.addEventListener('click', hideResetModal);
-    }
-
-    // 2. Hide Confirmation Modal (No/Cancel button)
-    if (confirmResetNo) {
-        confirmResetNo.addEventListener('click', hideResetModal); // Only hides, no reload/reset
-    }
-
-    // 3. Execute Reset (Yes button)
-    if (confirmResetYes) {
-        confirmResetYes.addEventListener('click', () => {
-            // 1. Hide the modal immediately
-            hideResetModal();
-            
-            // 2. Execute the game-only reset and reload
-            resetGameProgress();
-        });
-    }
-
     // ------------------- REVIEW PANEL LOGIC -------------------
     const closeReview = document.getElementById('close-review');
     const reviewBtn = document.getElementById('review-btn');
@@ -185,7 +152,6 @@ const reviewBtn = document.getElementById('review-btn');
 const reviewPanel = document.getElementById('review-panel');
 const overlay = document.getElementById('review-overlay');
 const closeReview = document.getElementById('close-review');
-const resetBtn = document.getElementById('reset-btn');
 
 if (reviewBtn) {
     reviewBtn.addEventListener('click', () => {
@@ -206,16 +172,6 @@ if (overlay) {
     overlay.addEventListener('click', () => {
         reviewPanel.style.display = 'none';
         overlay.style.display = 'none';
-    });
-}
-
-if (resetBtn) {
-    resetBtn.addEventListener('click', () => {
-        // Use custom modal for confirmation instead of alert/confirm
-        if (window.confirm("Are you sure you want to reset your progress?")) {
-            localStorage.clear();
-            location.reload();
-        }
     });
 }
 
@@ -768,12 +724,14 @@ function updateReviewPanel() {
 // --- GENRE BUTTON HANDLERS ---
 const genreMap = {
     'Action': 'action',
-    'Adventure': 'adventure',
-    'Horror': 'horror', 
+    'Indie': 'indie',
+    'Casual': 'casual',
+    'Shooter': 'shooter',
     'Puzzle': 'puzzle',
     'Strategy': 'strategy',
-    'RPG': 'role-playing-games', 
+    'Adventure': 'adventure', 
     'Sports': 'sports',
+    'Board Games': 'board-games',
     'Racing': 'racing',
     'Simulation': 'simulation'
 };
@@ -796,7 +754,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const toggleBtn = document.getElementById('toggle-genres');
     const divider = document.getElementById('divider1');
     const containers = document.querySelectorAll('.genre-container');
-    const resetBtn = document.getElementById('reset-btn');
+    const restartBtn = document.getElementById('restart-btn');
 
     // --- 2. Compact Mode (Original IIFE simplified and integrated) ---
     const COMPACT_BREAK_HEIGHT = 600; 
@@ -815,13 +773,30 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // --- 3. Authentication Check and Redirection Logic ---
     function checkAuthentication() {
-        const loggedInUser = localStorage.getItem("loggedInUser");
+        const urlParams = new URLSearchParams(window.location.search);
+        const authParam = urlParams.get('auth');
+        let loggedInUser = localStorage.getItem("loggedInUser");
+        
         // Check if we are currently on the login page (based on the presence of the form)
         const currentPageIsLogin = !!loginRegisterForm;
         
+        // ** NEW: If auth=true is in the URL, this is a fresh login redirect.
+        // We ensure loggedInUser is present and then strip the parameter.
+        if (authParam === 'true' && loggedInUser) {
+            // Remove the URL parameter for cleanliness and to prevent re-triggering
+            const newUrl = window.location.origin + window.location.pathname;
+            window.history.replaceState({}, document.title, newUrl);
+        } else if (authParam === 'true' && !loggedInUser) {
+            // Edge case: auth=true but no local storage (user manipulated URL or storage)
+            console.warn("Authentication parameter found without a loggedInUser in localStorage. Redirecting to login.");
+            window.location.href = 'login.html';
+            return;
+        }
+
         if (loggedInUser && currentPageIsLogin) {
-            // Case 1: Logged in, but on the login page -> Redirect to game page
-            window.location.href = 'index.html';
+            // Case 1: Logged in (via LS/auth param), but on the login page -> Redirect to game page
+            // Use window.location.replace to prevent going back to login with the back button
+            window.location.replace('index.html'); 
         } else if (!loggedInUser && !currentPageIsLogin) {
             // Case 2: NOT logged in, but on the game page -> Redirect to login page
             window.location.href = 'login.html';
@@ -833,6 +808,8 @@ document.addEventListener('DOMContentLoaded', () => {
             }
             // Start the game-specific initialization and listeners
             initializeGameUI(); 
+            // ** NEW: Set initial game state
+            setInitialGameUIState();
         }
     }
     
@@ -853,9 +830,8 @@ document.addEventListener('DOMContentLoaded', () => {
         // --- B. Genre Toggle Listeners (Your original logic) ---
         if (toggleBtn) {
             // Set initial state (Force show less)
-            divider.classList.add('collapsed'); 
-            containers.forEach(container => container.classList.add('hidden'));
-            toggleBtn.textContent = '▼ Show More'; 
+            const isCollapsed = divider.classList.contains('collapsed');
+            toggleBtn.textContent = isCollapsed ? '▼ Show More' : '▲ Show Less';
             
             toggleBtn.addEventListener('click', () => {
                 const isCollapsed = divider.classList.contains('collapsed');
@@ -879,6 +855,15 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             });
         });
+
+        if (restartBtn) {
+            restartBtn.addEventListener('click', () => {
+                // Clear only the game state saved for the VioGuesser application
+                localStorage.removeItem('vioGuesserState');
+                // Reload the page to reset the UI, keeping the user logged in
+                location.reload();
+            });
+        }
         
         // --- D. User Panel/Logout Listeners ---
         if (hamburgerBtn) {
@@ -906,17 +891,6 @@ document.addEventListener('DOMContentLoaded', () => {
             reviewOverlay.addEventListener('click', () => {
                 reviewPanel.classList.remove('open');
                 reviewOverlay.classList.remove('open');
-            });
-        }
-        
-        // --- F. Reset Button Listener (Your original logic) ---
-        if (resetBtn) {
-            resetBtn.addEventListener('click', () => {
-                // IMPORTANT: Since we can't use window.confirm(), we'll use 
-                // console log and proceed, but a custom modal is required for a real app.
-                console.warn("Resetting game progress (clearing local state).");
-                localStorage.removeItem('vioGuesserState'); // Only clear game state
-                location.reload();
             });
         }
     }
@@ -951,8 +925,8 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             localStorage.setItem("loggedInUser", username);
-            // *** CRITICAL LOGIN REDIRECT ***
-            window.location.href = "index.html";
+            // *** CRITICAL LOGIN REDIRECT - MODIFIED to include URL parameter ***
+            window.location.href = "index.html?auth=true";
         });
     }
 
